@@ -1,17 +1,23 @@
 import { useEffect } from "react";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { resetGameState } from "../Slices/gameStateSlice";
 import { resetCounter } from "../Slices/tryCountSlice";
+import { useNavigate } from "react-router-dom";
 
 const Complete = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const levelsInfo = useSelector((state) => state.gameState?.levelsInfo);
 
   useEffect(() => () => {
     dispatch(resetGameState());
     dispatch(resetCounter());
   }, [])
+
+  const handleOnClick = () => {
+    navigate("/");
+  }
 
   return (
     <Grid container spacing={2}>
@@ -52,10 +58,10 @@ const Complete = () => {
                   style={{
                     color:
                       ele?.verdict === "won"
-                        ? "green"
+                        ? "lightgreen"
                         : ele?.verdict === "lost"
-                        ? "red"
-                        : "black",
+                        ? "crimson"
+                        : "none",
                       fontWeight:550
                   }}
                 >
@@ -64,6 +70,25 @@ const Complete = () => {
               </div>
             ))}
         </Stack>
+      </Grid>
+      <Grid item container xs={12} justifyContent={"center"} alignItems={"center"}>
+        <Button
+        variant="outlined"
+        style={{
+          color: "white",
+          textTransform: "none",
+          borderColor: "white",
+          "& .MuiFocused .MuiOutlinedInputNotchedOutline": {
+            border: "none",
+            borderRadius: "2px 2px 2px 2px",
+          },
+        }}
+        onClick={() => handleOnClick()}
+        >
+          <Typography variant="h6" color="white">
+            End
+          </Typography>
+        </Button>
       </Grid>
     </Grid>
   );
