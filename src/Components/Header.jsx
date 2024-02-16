@@ -31,7 +31,7 @@ const Header = () => {
           >
             Hangman Game
           </Typography>
-          <GitHubIcon style={{ color: "white", cursor: "pointer" }} />
+          <GitHubIcon style={{ color: "white", cursor: "pointer" }} onClick={() => window.open("https://github.com/abhimazumder/hangmanGame", "_blank")} />
         </Toolbar>
       </AppBar>
     </Box>
