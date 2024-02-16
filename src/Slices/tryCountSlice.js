@@ -14,7 +14,8 @@ export const tryCountSlice = createSlice({
   initialState,
   reducers: {
     decreaseCount: (state) => {
-      if (state.triesLeft - 1 < 0) {
+      if (state.triesLeft - 1 < 1) {
+        state.triesLeft--;
         state.gameComplete = true;
         state.gameVerdict = "lost";
       } else state.triesLeft--;
