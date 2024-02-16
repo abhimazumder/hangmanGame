@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import SideCard from "../Components/SideCard/SideCard";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getWord } from "../Controllers/WordGenController";
 import { pushNewLevel } from "../Slices/gameStateSlice";
@@ -28,14 +28,16 @@ const Game = () => {
 
   const dispatch = useDispatch();
 
-  useMemo(() => {
-    if (currentLevelInfo?.verdict === "") {
-      return;
-    }
+  useEffect(() => {
+    if (currentLevelInfo?.verdict === "") return;
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const length = wordLength[difficultyStage];
 
-    getWord(length).then((res) => {
-      const newWord = res[0];
+    getWord(length, signal).then((res) => {
+      const newWord = res[0] || "";
       if (newWord?.length > 0) {
         const wordArray = newWord?.split("")?.map((letter) => ({
           letter: letter.toUpperCase(),
@@ -44,7 +46,13 @@ const Game = () => {
         dispatch(pushNewLevel({ wordArray }));
         dispatch(resetCounter());
       }
+    }).catch(err => {
+      console.log(err);
     });
+
+    return () => {
+      controller.abort();
+    };
   }, [generateNewWord]);
 
   return (

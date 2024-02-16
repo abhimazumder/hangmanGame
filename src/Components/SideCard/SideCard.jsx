@@ -77,7 +77,7 @@ const SideCard = () => {
             justifyContent: "center",
             alignItems: "center",
             margin: "5px",
-            cursor:"pointer",
+            cursor: "pointer",
           }}
         >
           <Typography variant="h6">

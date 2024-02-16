@@ -20,7 +20,7 @@ const WordContainer = () => {
   const {gameComplete, gameVerdict} = useSelector(state => state.tryCount);
 
   useEffect(() => {
-    if(wordString.length !== 0)
+    if(wordString?.length !== 0)
       dispatch(setTotalWordLetters({totalWordLetters: wordString?.length}));
   }, [wordString]);
 

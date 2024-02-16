@@ -2,9 +2,14 @@ import { Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { markGameStart, setDifficultyStage } from "../Slices/gameStateSlice";
+import {
+  markGameStart,
+  resetGameState,
+  setDifficultyStage,
+} from "../Slices/gameStateSlice";
 import DifficultySelector from "../Components/Main/DifficultySelector";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { resetCounter } from "../Slices/tryCountSlice";
 
 const Home = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState("easy");
@@ -14,14 +19,23 @@ const Home = () => {
     { id: "diff_2", label: "Hard", value: "hard" },
   ];
 
-  const gameInProgress = useSelector(state => state.gameState?.gameInProgress);
+  const { gameInProgress, hasGameEnded } = useSelector(
+    (state) => state.gameState
+  );
 
   const naviagte = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (hasGameEnded) {
+      dispatch(resetGameState());
+      dispatch(resetCounter());
+    }
+  }, []);
+
+  useEffect(() => {
     dispatch(setDifficultyStage({ difficultyStage: selectedDifficulty }));
-  }, [dispatch, selectedDifficulty]);
+  }, [selectedDifficulty]);
 
   const handleOnClick = () => {
     dispatch(markGameStart());
@@ -60,7 +74,7 @@ const Home = () => {
               borderRadius: "2px 2px 2px 2px",
             },
           }}
-          endIcon={<ArrowForwardIosIcon/>}
+          endIcon={<ArrowForwardIosIcon />}
           onClick={() => handleOnClick()}
         >
           <Typography variant="h6" color="white">
