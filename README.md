@@ -1,8 +1,8 @@
-# React + Vite
+# Hangman Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A classic Hangman Game built with React, Redux Toolkit, Material UI, Axios, and an external word generation API.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Stackblitz](https://stackblitz.com/~/github.com/abhimazumder/hangmanGame)
+- [Vercel](https://hangman-game-sage.vercel.app/)
